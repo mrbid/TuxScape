@@ -1,0 +1,54 @@
+name: tuxscape
+base: core22
+version: '1.0'
+license: GPL-2.0-only
+summary: A mythical adventure as Tux!
+description: |
+  Inspired by the famous game Run-Escape.
+
+  All your stats are shown in the title bar. ;)
+
+  Mouse locks when you click on the window, press ESCAPE to unlock the mouse.
+
+  Left Click = Attack
+  Right Click = Target Weapon / Engage Jet Pack
+  W,A,S,D / Arrow Keys = Move
+  L-SHIFT / R-CTRL = Sprint/Fast
+  Space = Jet Pack
+  1-9 = Weapon Change
+  C = Toggle between First and Third person
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: [amd64]
+    build-for: [amd64]
+  - build-on: [arm64]
+    build-for: [arm64]
+  - build-on: [armhf]
+    build-for: [armhf]
+
+apps:
+  tuxscape:
+    extensions: [gnome]
+    command: tuxscape
+    plugs:
+    - desktop
+    - desktop-legacy
+    - gsettings
+    - opengl
+    - wayland
+    - x11
+
+parts:
+  tuxscape:
+    source: https://github.com/mrbid/TuxScape
+    source-type: git
+    plugin: make
+    source-subdir: snap
+    build-packages:
+    - libglfw3-dev
+    stage-packages:
+    - libglfw3
+    - libgles2

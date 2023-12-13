@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=TuxScape
+Comment=A mythical adventure as Tux!
+StartupNotify=false
+Exec=tuxscape
+Icon=tuxscape
+Terminal=false
+Type=Application
+Categories=Game;ArcadeGame;KidsGame;Graphics

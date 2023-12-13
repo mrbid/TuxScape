@@ -1,0 +1,1 @@
+time for file in ../ply/*.ply; do ./ptf "$( basename $file )"; done;

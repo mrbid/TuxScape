@@ -1,0 +1,8 @@
+assets/OTR/scripts/ptf
+assets/OTR/blender/tuxscape.blend
+release/
+*.upx
+bin/index.html
+bin/index.js
+bin/index.wasm
+assets/OTR/blender/tuxscape.blend1

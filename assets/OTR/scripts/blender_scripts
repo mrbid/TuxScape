@@ -1,0 +1,108 @@
+
+/// export object positions of selected objects
+
+import bpy
+from os import path as p
+output_path = p.join(p.expanduser("~/Desktop"), "object-origins.txt")
+with open(output_path, "w") as output:
+    for obj in bpy.context.selected_objects:
+        x, y, z = obj.location
+        output.write(f"{obj.name}: {x}, {y}, {z}\n")
+
+/// export vertex positions of selected objects
+
+import bpy
+from os import path as p
+output_path = p.join(p.expanduser("~/Desktop"), "object-verts.csv")
+with open(output_path, "w") as output:
+    for obj in bpy.context.selected_objects:
+        output.write(f"\n{obj.name}\n")
+        for v in obj.data.vertices:
+            x, y, z = v.co
+            output.write(f"{x}, {y}, {z}\n")
+
+/// export object scales
+import bpy
+from os import path as p
+output_path = p.join(p.expanduser("~/Desktop"), "object-scales.txt")
+with open(output_path, "w") as output:
+    for obj in bpy.context.selected_objects:
+        output.write(f"{obj.name}: {obj.scale}\n")
+
+/// set color arribute to selected objects
+
+import bpy
+for obj in bpy.context.selected_objects:
+    obj.data.color_attributes.new("Color", 'FLOAT_COLOR', 'CORNER')
+
+/// set selected objects back to origin for export
+
+import bpy
+for obj in bpy.context.selected_objects:
+    obj.location = (0,0,0)
+
+/// reset rotations
+
+import bpy
+for obj in bpy.context.selected_objects:
+    obj.rotation_quaternion = (0,0,0,1)
+
+/// decimate selected objects by a ratio of 0.3 (good for most things)
+
+import bpy
+for obj in bpy.context.selected_objects:
+        decimate = obj.modifiers.new("Decimate", type="DECIMATE")
+        decimate.ratio = 0.3
+bpy.context.view_layer.update()
+
+/// apply modifiers to selected objects
+
+import bpy
+for obj in bpy.context.selected_objects:
+	obj.modifier_apply(modifier="Decimate")
+
+/// remove modifiers
+
+import bpy
+for obj in bpy.context.selected_objects:
+    obj.modifiers.clear()
+
+/// set z of all selected objects to 0
+
+import bpy
+saved_location = bpy.context.scene.cursor.location
+for obj in bpy.context.selected_objects:
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    x, y, z = obj.location
+    bpy.context.scene.cursor.location = (x, y, 0)
+    bpy.ops.object.origin_set(type='ORIGIN_CURSOR')
+bpy.context.scene.cursor.location = saved_location
+
+/// export selected objects as ply
+
+import bpy
+for obj in bpy.context.selected_objects:
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.ops.wm.ply_export(
+                            filepath='/home/o/Desktop/'+obj.name+'.ply',
+                            filter_glob='*.ply',
+                            check_existing=False,
+                            ascii_format=True,
+                            export_selected_objects=True,
+                            apply_modifiers=True,
+                            export_triangulated_mesh=True,
+                            export_normals=True,
+                            export_uv=False,
+                            export_colors='SRGB',
+                            global_scale=1.0,
+                            forward_axis='Y',
+                            up_axis='Z'
+                        )
+
+
+
+
+
