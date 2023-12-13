@@ -8,6 +8,10 @@
 
 ### Inspired by the famous game Run-Escape.
 
+**Latest upto date repository at:** https://notabug.org/Vandarin/TuxScape
+
+*This repository was only created for the Snapcraft submission.*
+
 ## controls
 *Mouse locks when you click on the window, press ESCAPE to unlock the mouse.*
 
