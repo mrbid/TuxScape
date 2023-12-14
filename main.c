@@ -134,6 +134,9 @@ vec look_dir, lookx, looky;
 float MOVE_SPEED = 0.6f;
 vec pp, mpp;      // position and inverted(-)position
 uint attack = 0;  // atacking
+uint swipe = 0;   // swipe animation
+uint swipe_phase = 0;
+float swipe_lt = 0.f;
 uint focus = 0;   // focus mode
 uint grounded = 0;// is on ground (not flying)
 vec plook;        // 2D look direction (zero Z axis) (not normalised)
@@ -248,6 +251,46 @@ void updateTitle()
     char tmp[256];
     sprintf(tmp, "❤️ %u - 📈 %u - ⚔️ %u/8", health, xp, weapon);
     glfwSetWindowTitle(window, tmp);
+}
+void doAttack()
+{
+    for(uint i=0; i < MAX_ENEMIES; i++)
+    {
+        if(enemy_pos[i].x != 0.f || enemy_pos[i].y != 0.f || enemy_pos[i].z != 0.f)
+        {
+            if(vDistSq(mpp, enemy_pos[i]) < 0.014f)
+            {
+                vec n = (vec){enemy_pos[i].x, enemy_pos[i].y, 0.f};
+                vSub(&n, n, (vec){-pp.x, -pp.y, 0.f});
+                vNorm(&n);
+                vec tl = plook;
+                vNorm(&tl);
+                const float angle = (tl.x * n.x) + (tl.y * n.y);
+                //printf("%f\n", angle);
+                if(angle > 0.9f) // looking at the enemy?
+                {
+                    enemy_health[i] -= 88*(1+wield); // scale damage by wield weapon level
+                    //printf("%u: %i\n", i, enemy_health[i]);
+                    if(enemy_health[i] <= 0) // uh-oh dead
+                    {
+                        xp += (1+enemy_type[i])*(1+enemy_type[i]);
+                        if     (xp > 113422){weapon = 8, wield = weapon;}
+                        else if(xp > 49314 ){weapon = 7, wield = weapon;}
+                        else if(xp > 21441 ){weapon = 6, wield = weapon;}
+                        else if(xp > 9322  ){weapon = 5, wield = weapon;}
+                        else if(xp > 4053  ){weapon = 4, wield = weapon;}
+                        else if(xp > 1762  ){weapon = 3, wield = weapon;}
+                        else if(xp > 766   ){weapon = 2, wield = weapon;}
+                        else if(xp > 333   ){weapon = 1, wield = weapon;}
+
+                        updateTitle();
+                        enemy_pos[i] = (vec){0.f, 0.f, 0.f};
+                    }
+                    break; // one enemy per swipe
+                }
+            }
+        }
+    }
 }
 
 //*************************************
@@ -377,6 +420,22 @@ if(health > 0)
         }
     }
 
+    // auto attack
+    if(attack == 1)
+    {
+        if(t > swipe_lt)
+        {
+            if(swipe_phase == 0)
+            {
+                doAttack();
+                swipe = 1;
+            }
+            else if(swipe_phase == 1){swipe = 0;}
+            swipe_phase = 1 - swipe_phase;
+            swipe_lt = t + 0.0625f;
+        }
+    }
+
     // spawn new box
     {
         static float lt = 0.f;
@@ -482,7 +541,7 @@ if(health > 0)
     esBindModel(2);
     mIdent(&model);
     mSetPos(&model, (vec){0.f, -0.3f, 0.f});
-    if(attack == 1 && vDistSq(mpp, (vec){0.f, -0.3f, 0.f}) < 0.012f)
+    if(swipe == 1 && vDistSq(mpp, (vec){0.f, -0.3f, 0.f}) < 0.012f)
     {
         vec n = (vec){0.f, -0.3f, 0.f};
         vSub(&n, n, (vec){-pp.x, -pp.y, 0.f});
@@ -574,7 +633,7 @@ if(health > 0)
                     mRotZ(&model, (((float)(i*m))*0.003649635f)*x2PI);
                 }
             }
-            float zscale = (1.f/((float)enemy_health_max[i]))*((float)enemy_health[i]);
+            float zscale = (1.f/((float)enemy_health_max[i]))*((float)enemy_health[i]); // could pre-compute the reciprocal but im past caring it's 2023
             // if(zscale < 0.5f)
             // {
             //     glEnable(GL_BLEND);
@@ -583,7 +642,7 @@ if(health > 0)
             // }
             // else
             // {
-                if(zscale < 1.f){mScale(&model, 1.f, 1.f, zscale);} // could pre-compute the reciprocal but im past caring it's 2023
+                if(zscale < 1.f){mScale(&model, 1.f, 1.f, zscale);}
             // }
             updateModelView();
             esRenderModel(m);
@@ -600,7 +659,7 @@ if(health > 0)
     {
         if(box_pos[i].x != 0.f || box_pos[i].y != 0.f || box_pos[i].z != 0.f)
         {
-            if(attack == 1)
+            if(swipe == 1)
             {
                 if(vDistSq(mpp, box_pos[i]) < 0.014f)
                 {
@@ -624,7 +683,7 @@ if(health > 0)
     {
         if(itm_pos[i].x != 0.f || itm_pos[i].y != 0.f || itm_pos[i].z != 0.f)
         {
-            const uint m = 16+(i%14); // lol yes im that frugal
+            const uint m = 16+(i%14); // lol yes im that frugal on memory today
             if(health < 100 && vDistSq(mpp, itm_pos[i]) < 0.003f)
             {
                 if(m == 16 || m == 17){health += 1;}
@@ -747,7 +806,7 @@ if(health > 0)
                 mRotZ(&model, -xrot+PI);
             else
                 mRotZ(&model, lr);
-            if(attack == 1){mRotY(&model, -0.420f);}
+            if(swipe == 1){mRotY(&model, -0.420f);}
             mTranslate(&model, 0.025f, 0.f, 0.05f);
             updateModelView();
             esRenderModel(wid);
@@ -826,7 +885,7 @@ if(health > 0)
 
         // rotate to camera direction with slight offset and set pos
         mRotZ(&model, -(xrot-PI));
-        if(attack == 1){mRotY(&model, -0.6f); mRotX(&model, -0.3f);}
+        if(swipe == 1){mRotY(&model, -0.6f); mRotX(&model, -0.3f);}
         mSetPos(&model, np);
 
         // render it
@@ -840,7 +899,7 @@ if(health > 0)
 
     ///
 
-    // render meshy
+    // render meshy intro
     if(t < 5.f)
     {
         shadeFullbright1(&position_id, &projection_id, &modelview_id, &color_id, &opacity_id);
@@ -1017,43 +1076,9 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         }
         if(button == GLFW_MOUSE_BUTTON_LEFT)
         {
-            for(uint i=0; i < MAX_ENEMIES; i++)
-            {
-                if(enemy_pos[i].x != 0.f || enemy_pos[i].y != 0.f || enemy_pos[i].z != 0.f)
-                {
-                    if(vDistSq(mpp, enemy_pos[i]) < 0.014f)
-                    {
-                        vec n = (vec){enemy_pos[i].x, enemy_pos[i].y, 0.f};
-                        vSub(&n, n, (vec){-pp.x, -pp.y, 0.f});
-                        vNorm(&n);
-                        vec tl = plook;
-                        vNorm(&tl);
-                        const float angle = (tl.x * n.x) + (tl.y * n.y);
-                        //printf("%f\n", angle);
-                        if(angle > 0.9f) // looking at the enemy?
-                        {
-                            enemy_health[i] -= 88*(1+wield); // scale damage by wield weapon level
-                            //printf("%u: %i\n", i, enemy_health[i]);
-                            if(enemy_health[i] <= 0) // uh-oh dead
-                            {
-                                xp += (1+enemy_type[i])*(1+enemy_type[i]);
-                                if     (xp > 113422){weapon = 8, wield = weapon;}
-                                else if(xp > 49314){weapon = 7, wield = weapon;}
-                                else if(xp > 21441){weapon = 6, wield = weapon;}
-                                else if(xp > 9322){weapon = 5, wield = weapon;}
-                                else if(xp > 4053){weapon = 4, wield = weapon;}
-                                else if(xp > 1762){weapon = 3, wield = weapon;}
-                                else if(xp > 766){weapon = 2, wield = weapon;}
-                                else if(xp > 333){weapon = 1, wield = weapon;}
-
-                                updateTitle();
-                                enemy_pos[i] = (vec){0.f, 0.f, 0.f};
-                            }
-                            break; // one enemy per swipe
-                        }
-                    }
-                }
-            }
+            swipe = 1;
+            swipe_phase = 0;
+            swipe_lt = 0.f;
             attack = 1;
         }
         if(button == GLFW_MOUSE_BUTTON_RIGHT)
@@ -1070,6 +1095,9 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
     {
         if(button == GLFW_MOUSE_BUTTON_LEFT)
         {
+            swipe = 0;
+            swipe_phase = 0;
+            swipe_lt = 0.f;
             attack = 0;
         }
         else if(button == GLFW_MOUSE_BUTTON_RIGHT)
