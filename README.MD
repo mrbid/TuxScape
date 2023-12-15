@@ -1,7 +1,6 @@
 ![Screenshot of the TuxScape game](https://raw.githubusercontent.com/mrbid/TuxScape/main/screenshot.png)
 
-### A mythical adventure as Tux!
-### Inspired by the famous game Run-Escape.
+### A mythical adventure as Tux! Inspired by the famous game Run-Escape.
 
 * **Flathub:** https://flathub.org/apps/com.voxdsp.TuxScape
 * **Snapcraft:** https://snapcraft.io/tuxscape
