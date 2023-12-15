@@ -41,7 +41,6 @@
 #include "inc/esAux5.h"
 
 #include "inc/res.h"
-#include "assets/high/tux.h"   //1
 #include "assets/high/flame1.h"//3
 #include "assets/high/flame2.h"//4
 #include "assets/high/intro.h" //60
@@ -49,6 +48,7 @@
 
 #ifdef MED
     #include "assets/med/knife.h"  //0
+    #include "assets/high/tux.h"   //1
     #include "assets/med/treeman.h"//2
     #include "assets/high/f1.h"    //5
     #include "assets/high/f2.h"    //6
@@ -108,10 +108,11 @@
     #include "assets/med/crossbones.h"//61
 #elif LOW
     #include "assets/low/knife.h"  //0
+    #include "assets/low/tux.h"    //1
     #include "assets/low/treeman.h"//2
-    #include "assets/low/f1.h"    //5
-    #include "assets/low/f2.h"    //6
-    #include "assets/low/f3.h"    //7
+    #include "assets/low/f1.h"     //5
+    #include "assets/low/f2.h"     //6
+    #include "assets/low/f3.h"     //7
     #include "assets/low/tree1.h"  //8
     #include "assets/low/hot.h"    //9
     #include "assets/low/box1.h"   //10
@@ -167,6 +168,7 @@
     #include "assets/low/crossbones.h"//61
 #else
     #include "assets/high/knife.h"  //0
+    #include "assets/high/tux.h"   //1
     #include "assets/high/treeman.h"//2
     #include "assets/high/f1.h"     //5
     #include "assets/high/f2.h"     //6
@@ -1346,7 +1348,7 @@ int main(int argc, char** argv)
     printf("Space = Jet Pack\n");
     printf("1-9 = Weapon Change\n");
     printf("C = Toggle between First and Third person\n");
-    printf("V = Toggle between sticky/toggle mouse clicks (good for afk)\n");
+    printf("V / MOUSE4 = Toggle between sticky/toggle mouse clicks (good for afk)\n");
     printf("----\n");
     printf("Tux made by Andy Cuccaro\n");
     printf("https://sketchfab.com/3d-models/tux-157de95fa4014050a969a8361a83d366\n");
