@@ -688,16 +688,15 @@ if(health > 0)
             const uint m = 16+(i%14); // lol yes im that frugal on memory today
             if(health < mhealth && vDistSq(mpp, itm_pos[i]) < 0.003f)
             {
-                if(m == 16 || m == 17){health += 1;}
-                else if(m == 18){health += 2;}
-                else if(m == 19){health += 3;}
-                else if(m == 20){health += 6;}
-                else if(m == 21 || m == 23){health += 8;}
-                else if(m == 22 || m == 24){health += 9;}
-                else if(m == 25){health += 15;}
-                else if(m == 26){health += 16;}
-                else if(m == 27){health += 19;}
-                else if(m == 28){health += 33;}
+                if(m == 16 || m == 17){health += 2;} // cherry & strawberry
+                else if(m == 21 || m == 19){health += 4;} // cookie & coffee
+                else if(m == 18 || m == 20){health += 6;} // cookie trophy & cookie coffee
+                else if(m == 22 || m == 23 ||  m == 24){health += 9;} // gingerman & pumpkin
+                else if(m == 25){health += 10;} // burger
+                else if(m == 26){health += 14;} // cup cake
+                else if(m == 27){health += 18;} // elf cake
+                else if(m == 28){health += 20;} // squid cake
+                else if(m == 29){health += 33;} // ginger bread house
                 itm_pos[i] = (vec){0.f, 0.f, 0.f};
                 updateTitle();
                 continue;
