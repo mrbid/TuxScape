@@ -41,69 +41,192 @@
 #include "inc/esAux5.h"
 
 #include "inc/res.h"
-#include "assets/high/knife.h"  //0
-#include "assets/high/tux.h"    //1
-#include "assets/high/treeman.h"//2
-#include "assets/high/flame1.h" //3
-#include "assets/high/flame2.h" //4
-#include "assets/high/f1.h"     //5
-#include "assets/high/f2.h"     //6
-#include "assets/high/f3.h"     //7
-#include "assets/high/tree1.h"  //8
-#include "assets/high/hot.h"    //9
-#include "assets/high/box1.h"   //10
-#include "assets/high/box2.h"   //11
-#include "assets/high/box3.h"   //12
-#include "assets/high/box4.h"   //13
-#include "assets/high/box5.h"   //14
-#include "assets/high/box6.h"   //15
-#include "assets/high/hp1.h"    //16
-#include "assets/high/hp2.h"    //17
-#include "assets/high/hp3.h"    //18
-#include "assets/high/hp4.h"    //19
-#include "assets/high/hp5.h"    //20
-#include "assets/high/hp6.h"    //21
-#include "assets/high/hp7.h"    //22
-#include "assets/high/hp8.h"    //23
-#include "assets/high/hp9.h"    //24
-#include "assets/high/hp10.h"   //25
-#include "assets/high/hp11.h"   //26
-#include "assets/high/hp12.h"   //27
-#include "assets/high/hp13.h"   //28
-#include "assets/high/hp14.h"   //29
-#include "assets/high/shield1.h"//30
-#include "assets/high/shield2.h"//31
-#include "assets/high/shield3.h"//32
-#include "assets/high/shield4.h"//33
-#include "assets/high/wep1.h"   //34
-#include "assets/high/wep2.h"   //35
-#include "assets/high/wep3.h"   //36
-#include "assets/high/wep4.h"   //37
-#include "assets/high/wep5.h"   //38
-#include "assets/high/wep6.h"   //39
-#include "assets/high/wep7.h"   //40
-#include "assets/high/wep8.h"   //41
-#include "assets/high/zombie.h" //42
-#include "assets/high/dinofly.h"//43
-#include "assets/high/babybluedragon.h"//44
-#include "assets/high/skull.h"     //45
-#include "assets/high/tornado.h"   //46
-#include "assets/high/dragphent.h" //47
-#include "assets/high/alien.h"     //48
-#include "assets/high/aliendog.h"  //49
-#include "assets/high/redknight.h" //50
-#include "assets/high/samurai.h"   //51
-#include "assets/high/wizard.h"    //52
-#include "assets/high/knight.h"    //53
-#include "assets/high/ogre.h"      //54
-#include "assets/high/golum.h"     //55
-#include "assets/high/bear.h"      //56
-#include "assets/high/warewolf.h"  //57
-#include "assets/high/bluedragon.h"//58
-#include "assets/high/reddragon.h" //59
-#include "assets/high/intro.h"     //60
-#include "assets/high/crossbones.h"//61
-#include "assets/high/meshy.h"     //62
+#include "assets/high/tux.h"   //1
+#include "assets/high/flame1.h"//3
+#include "assets/high/flame2.h"//4
+#include "assets/high/intro.h" //60
+#include "assets/high/meshy.h" //62
+
+#ifdef MED
+    #include "assets/med/knife.h"  //0
+    #include "assets/med/treeman.h"//2
+    #include "assets/high/f1.h"    //5
+    #include "assets/high/f2.h"    //6
+    #include "assets/high/f3.h"    //7
+    #include "assets/med/tree1.h"  //8
+    #include "assets/med/hot.h"    //9
+    #include "assets/med/box1.h"   //10
+    #include "assets/med/box2.h"   //11
+    #include "assets/med/box3.h"   //12
+    #include "assets/med/box4.h"   //13
+    #include "assets/med/box5.h"   //14
+    #include "assets/med/box6.h"   //15
+    #include "assets/med/hp1.h"    //16
+    #include "assets/med/hp2.h"    //17
+    #include "assets/med/hp3.h"    //18
+    #include "assets/med/hp4.h"    //19
+    #include "assets/med/hp5.h"    //20
+    #include "assets/med/hp6.h"    //21
+    #include "assets/med/hp7.h"    //22
+    #include "assets/med/hp8.h"    //23
+    #include "assets/med/hp9.h"    //24
+    #include "assets/med/hp10.h"   //25
+    #include "assets/med/hp11.h"   //26
+    #include "assets/med/hp12.h"   //27
+    #include "assets/med/hp13.h"   //28
+    #include "assets/med/hp14.h"   //29
+    #include "assets/med/shield1.h"//30
+    #include "assets/med/shield2.h"//31
+    #include "assets/med/shield3.h"//32
+    #include "assets/med/shield4.h"//33
+    #include "assets/med/wep1.h"   //34
+    #include "assets/med/wep2.h"   //35
+    #include "assets/med/wep3.h"   //36
+    #include "assets/med/wep4.h"   //37
+    #include "assets/med/wep5.h"   //38
+    #include "assets/med/wep6.h"   //39
+    #include "assets/med/wep7.h"   //40
+    #include "assets/med/wep8.h"   //41
+    #include "assets/med/zombie.h" //42
+    #include "assets/med/dinofly.h"//43
+    #include "assets/med/babybluedragon.h"//44
+    #include "assets/med/skull.h"     //45
+    #include "assets/med/tornado.h"   //46
+    #include "assets/med/dragphent.h" //47
+    #include "assets/med/alien.h"     //48
+    #include "assets/med/aliendog.h"  //49
+    #include "assets/med/redknight.h" //50
+    #include "assets/med/samurai.h"   //51
+    #include "assets/med/wizard.h"    //52
+    #include "assets/med/knight.h"    //53
+    #include "assets/med/ogre.h"      //54
+    #include "assets/med/golum.h"     //55
+    #include "assets/med/bear.h"      //56
+    #include "assets/med/warewolf.h"  //57
+    #include "assets/med/bluedragon.h"//58
+    #include "assets/med/reddragon.h" //59
+    #include "assets/med/crossbones.h"//61
+#elif LOW
+    #include "assets/low/knife.h"  //0
+    #include "assets/low/treeman.h"//2
+    #include "assets/low/f1.h"    //5
+    #include "assets/low/f2.h"    //6
+    #include "assets/low/f3.h"    //7
+    #include "assets/low/tree1.h"  //8
+    #include "assets/low/hot.h"    //9
+    #include "assets/low/box1.h"   //10
+    #include "assets/low/box2.h"   //11
+    #include "assets/low/box3.h"   //12
+    #include "assets/low/box4.h"   //13
+    #include "assets/low/box5.h"   //14
+    #include "assets/low/box6.h"   //15
+    #include "assets/low/hp1.h"    //16
+    #include "assets/low/hp2.h"    //17
+    #include "assets/low/hp3.h"    //18
+    #include "assets/low/hp4.h"    //19
+    #include "assets/low/hp5.h"    //20
+    #include "assets/low/hp6.h"    //21
+    #include "assets/low/hp7.h"    //22
+    #include "assets/low/hp8.h"    //23
+    #include "assets/low/hp9.h"    //24
+    #include "assets/low/hp10.h"   //25
+    #include "assets/low/hp11.h"   //26
+    #include "assets/low/hp12.h"   //27
+    #include "assets/low/hp13.h"   //28
+    #include "assets/low/hp14.h"   //29
+    #include "assets/low/shield1.h"//30
+    #include "assets/low/shield2.h"//31
+    #include "assets/low/shield3.h"//32
+    #include "assets/low/shield4.h"//33
+    #include "assets/low/wep1.h"   //34
+    #include "assets/low/wep2.h"   //35
+    #include "assets/low/wep3.h"   //36
+    #include "assets/low/wep4.h"   //37
+    #include "assets/low/wep5.h"   //38
+    #include "assets/low/wep6.h"   //39
+    #include "assets/low/wep7.h"   //40
+    #include "assets/low/wep8.h"   //41
+    #include "assets/low/zombie.h" //42
+    #include "assets/low/dinofly.h"//43
+    #include "assets/low/babybluedragon.h"//44
+    #include "assets/low/skull.h"     //45
+    #include "assets/low/tornado.h"   //46
+    #include "assets/low/dragphent.h" //47
+    #include "assets/low/alien.h"     //48
+    #include "assets/low/aliendog.h"  //49
+    #include "assets/low/redknight.h" //50
+    #include "assets/low/samurai.h"   //51
+    #include "assets/low/wizard.h"    //52
+    #include "assets/low/knight.h"    //53
+    #include "assets/low/ogre.h"      //54
+    #include "assets/low/golum.h"     //55
+    #include "assets/low/bear.h"      //56
+    #include "assets/low/warewolf.h"  //57
+    #include "assets/low/bluedragon.h"//58
+    #include "assets/low/reddragon.h" //59
+    #include "assets/low/crossbones.h"//61
+#else
+    #include "assets/high/knife.h"  //0
+    #include "assets/high/treeman.h"//2
+    #include "assets/high/f1.h"     //5
+    #include "assets/high/f2.h"     //6
+    #include "assets/high/f3.h"     //7
+    #include "assets/high/tree1.h"  //8
+    #include "assets/high/hot.h"    //9
+    #include "assets/high/box1.h"   //10
+    #include "assets/high/box2.h"   //11
+    #include "assets/high/box3.h"   //12
+    #include "assets/high/box4.h"   //13
+    #include "assets/high/box5.h"   //14
+    #include "assets/high/box6.h"   //15
+    #include "assets/high/hp1.h"    //16
+    #include "assets/high/hp2.h"    //17
+    #include "assets/high/hp3.h"    //18
+    #include "assets/high/hp4.h"    //19
+    #include "assets/high/hp5.h"    //20
+    #include "assets/high/hp6.h"    //21
+    #include "assets/high/hp7.h"    //22
+    #include "assets/high/hp8.h"    //23
+    #include "assets/high/hp9.h"    //24
+    #include "assets/high/hp10.h"   //25
+    #include "assets/high/hp11.h"   //26
+    #include "assets/high/hp12.h"   //27
+    #include "assets/high/hp13.h"   //28
+    #include "assets/high/hp14.h"   //29
+    #include "assets/high/shield1.h"//30
+    #include "assets/high/shield2.h"//31
+    #include "assets/high/shield3.h"//32
+    #include "assets/high/shield4.h"//33
+    #include "assets/high/wep1.h"   //34
+    #include "assets/high/wep2.h"   //35
+    #include "assets/high/wep3.h"   //36
+    #include "assets/high/wep4.h"   //37
+    #include "assets/high/wep5.h"   //38
+    #include "assets/high/wep6.h"   //39
+    #include "assets/high/wep7.h"   //40
+    #include "assets/high/wep8.h"   //41
+    #include "assets/high/zombie.h" //42
+    #include "assets/high/dinofly.h"//43
+    #include "assets/high/babybluedragon.h"//44
+    #include "assets/high/skull.h"     //45
+    #include "assets/high/tornado.h"   //46
+    #include "assets/high/dragphent.h" //47
+    #include "assets/high/alien.h"     //48
+    #include "assets/high/aliendog.h"  //49
+    #include "assets/high/redknight.h" //50
+    #include "assets/high/samurai.h"   //51
+    #include "assets/high/wizard.h"    //52
+    #include "assets/high/knight.h"    //53
+    #include "assets/high/ogre.h"      //54
+    #include "assets/high/golum.h"     //55
+    #include "assets/high/bear.h"      //56
+    #include "assets/high/warewolf.h"  //57
+    #include "assets/high/bluedragon.h"//58
+    #include "assets/high/reddragon.h" //59
+    #include "assets/high/crossbones.h"//61
+#endif
+
+
 
 //*************************************
 // globals
@@ -1223,7 +1346,7 @@ int main(int argc, char** argv)
     printf("Space = Jet Pack\n");
     printf("1-9 = Weapon Change\n");
     printf("C = Toggle between First and Third person\n");
-    printf("V / MOUSE4 = Toggle between sticky/toggle mouse clicks (good for afk)\n");
+    printf("V = Toggle between sticky/toggle mouse clicks (good for afk)\n");
     printf("----\n");
     printf("Tux made by Andy Cuccaro\n");
     printf("https://sketchfab.com/3d-models/tux-157de95fa4014050a969a8361a83d366\n");
