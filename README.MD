@@ -3,7 +3,7 @@
 * **Play Online:** https://mrbid.github.io/tuxscape
 * **Flathub:** https://flathub.org/apps/com.voxdsp.TuxScape
 * **Snapcraft:** https://snapcraft.io/tuxscape
-* **Windows:** https://github.com/mrbid/TuxScape/releases/download/1.2.2/TuxScape_windows.zip
+* **Windows:** [TuxScape_windows.zip](https://github.com/mrbid/TuxScape/releases/download/1.2.2/TuxScape_windows.zip)
 
 ### A mythical adventure as Tux!
 
