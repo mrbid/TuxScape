@@ -141,9 +141,11 @@ uint focus = 0;   // focus mode
 uint grounded = 0;// is on ground (not flying)
 vec plook;        // 2D look direction (zero Z axis) (not normalised)
 int health = 100; // health
+int mhealth = 100;// max health
 uint xp = 0;      // total xp gained
 uint weapon = 0;  // weapon unlock level
 uint wield = 0;   // currently wielded weapon
+uint sticky = 0;  // sticky/toggle mouse clicking (afking)
 
 // islands
 #define MAX_ISLANDS 21
@@ -274,14 +276,14 @@ void doAttack()
                     if(enemy_health[i] <= 0) // uh-oh dead
                     {
                         xp += (1+enemy_type[i])*(1+enemy_type[i]);
-                        if     (xp > 113422){weapon = 8, wield = weapon;}
-                        else if(xp > 49314 ){weapon = 7, wield = weapon;}
-                        else if(xp > 21441 ){weapon = 6, wield = weapon;}
-                        else if(xp > 9322  ){weapon = 5, wield = weapon;}
-                        else if(xp > 4053  ){weapon = 4, wield = weapon;}
-                        else if(xp > 1762  ){weapon = 3, wield = weapon;}
-                        else if(xp > 766   ){weapon = 2, wield = weapon;}
-                        else if(xp > 333   ){weapon = 1, wield = weapon;}
+                        if     (xp > 113422){weapon = 8, mhealth = 500; wield = weapon;}
+                        else if(xp > 49314 ){weapon = 7, mhealth = 450; wield = weapon;}
+                        else if(xp > 21441 ){weapon = 6, mhealth = 400; wield = weapon;}
+                        else if(xp > 9322  ){weapon = 5, mhealth = 350; wield = weapon;}
+                        else if(xp > 4053  ){weapon = 4, mhealth = 300; wield = weapon;}
+                        else if(xp > 1762  ){weapon = 3, mhealth = 250; wield = weapon;}
+                        else if(xp > 766   ){weapon = 2, mhealth = 200; wield = weapon;}
+                        else if(xp > 333   ){weapon = 1, mhealth = 150; wield = weapon;}
 
                         updateTitle();
                         enemy_pos[i] = (vec){0.f, 0.f, 0.f};
@@ -684,7 +686,7 @@ if(health > 0)
         if(itm_pos[i].x != 0.f || itm_pos[i].y != 0.f || itm_pos[i].z != 0.f)
         {
             const uint m = 16+(i%14); // lol yes im that frugal on memory today
-            if(health < 100 && vDistSq(mpp, itm_pos[i]) < 0.003f)
+            if(health < mhealth && vDistSq(mpp, itm_pos[i]) < 0.003f)
             {
                 if(m == 16 || m == 17){health += 1;}
                 else if(m == 18){health += 2;}
@@ -941,7 +943,7 @@ if(health > 0)
     if(t > 5.f && t < 10.f)
     {
         if(t < 9.f){glUniform1f(opacity_id, 1.f);}
-        else       {glUniform1f(opacity_id, 1.f-(t-9.f));}
+        else       {glUniform1f(opacity_id, 1.f-(t-9.f)); focus = 0;} // kill smooth drop-in now [3]
         vec ld = look_dir;
         vMulS(&ld, ld, 1.79f);
         vec np = (vec){-pp.x, -pp.y, pp.z};
@@ -1022,6 +1024,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
                 zoom = 0.f;
             }
         }
+        else if(key == GLFW_KEY_V) // sticky mouse clicks
+        {
+            sticky = 1 - sticky;
+        }
         else if(key == GLFW_KEY_1 && weapon >= 0){wield = 0;}
         else if(key == GLFW_KEY_2 && weapon >= 1){wield = 1;}
         else if(key == GLFW_KEY_3 && weapon >= 2){wield = 2;}
@@ -1062,6 +1068,8 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 }
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
+    static uint left_sticky_state = 0;
+    static uint right_sticky_state = 0;
     static float lz = 0.f;
     if(action == GLFW_PRESS)
     {
@@ -1076,22 +1084,64 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         }
         if(button == GLFW_MOUSE_BUTTON_LEFT)
         {
-            swipe = 1;
-            swipe_phase = 0;
-            swipe_lt = 0.f;
-            attack = 1;
-        }
-        if(button == GLFW_MOUSE_BUTTON_RIGHT)
-        {
-            if(zoom >= -0.11f)
+            if(sticky == 0)
             {
-                lz = -0.10f;
-                zoom = -0.18f;
-            }else{lz = 0.f;}
-            focus = 1;
+                swipe = 1;
+                swipe_phase = 0;
+                swipe_lt = 0.f;
+                attack = 1;
+            }
+            else
+            {
+                if(left_sticky_state == 0)
+                {
+                    swipe = 1;
+                    swipe_phase = 0;
+                    swipe_lt = 0.f;
+                    attack = 1;
+                }
+                else
+                {
+                    swipe = 0;
+                    swipe_phase = 0;
+                    swipe_lt = 0.f;
+                    attack = 0;
+                }
+                left_sticky_state = 1 - left_sticky_state;
+            }
+        }
+        else if(button == GLFW_MOUSE_BUTTON_RIGHT)
+        {
+            if(sticky == 0)
+            {
+                if(zoom >= -0.11f)
+                {
+                    lz = -0.10f;
+                    zoom = -0.18f;
+                }else{lz = 0.f;}
+                focus = 1;
+            }
+            else
+            {
+                if(right_sticky_state == 0)
+                {
+                    if(zoom >= -0.11f)
+                    {
+                        lz = -0.10f;
+                        zoom = -0.18f;
+                    }else{lz = 0.f;}
+                    focus = 1;
+                }
+                else
+                {
+                    if(lz != 0.f){zoom = lz;}
+                    focus = 0;
+                }
+                right_sticky_state = 1 - right_sticky_state;
+            }
         }
     }
-    else if(action == GLFW_RELEASE)
+    else if(sticky == 0 && action == GLFW_RELEASE)
     {
         if(button == GLFW_MOUSE_BUTTON_LEFT)
         {
@@ -1099,11 +1149,13 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
             swipe_phase = 0;
             swipe_lt = 0.f;
             attack = 0;
+            left_sticky_state = 0;
         }
         else if(button == GLFW_MOUSE_BUTTON_RIGHT)
         {
             if(lz != 0.f){zoom = lz;}
             focus = 0;
+            right_sticky_state = 0;
         }
     }
 }
@@ -1157,6 +1209,7 @@ int main(int argc, char** argv)
     printf("Space = Jet Pack\n");
     printf("1-9 = Weapon Change\n");
     printf("C = Toggle between First and Third person\n");
+    printf("V = Toggle between stickey/toggle mouse clicks (good for afk)\n");
     printf("----\n");
     printf("Tux made by Andy Cuccaro\n");
     printf("https://sketchfab.com/3d-models/tux-157de95fa4014050a969a8361a83d366\n");
@@ -1346,7 +1399,8 @@ int main(int argc, char** argv)
     //
     islands_type[0] = 5;
     for(uint i=1; i < MAX_ISLANDS; i++){islands_type[i] = esRand(5, 7);}
-    pp = (vec){0.f, 0.5f, 0.2f};
+    pp = (vec){0.f, 0.5f, 0.9f};
+    focus = 1; // smooth drop-in [3]
     t = fTime();
     lfct = t;
 
