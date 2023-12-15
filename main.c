@@ -1223,7 +1223,7 @@ int main(int argc, char** argv)
     printf("Space = Jet Pack\n");
     printf("1-9 = Weapon Change\n");
     printf("C = Toggle between First and Third person\n");
-    printf("V = Toggle between sticky/toggle mouse clicks (good for afk)\n");
+    printf("V / MOUSE4 = Toggle between sticky/toggle mouse clicks (good for afk)\n");
     printf("----\n");
     printf("Tux made by Andy Cuccaro\n");
     printf("https://sketchfab.com/3d-models/tux-157de95fa4014050a969a8361a83d366\n");
