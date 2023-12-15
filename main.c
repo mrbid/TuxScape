@@ -1145,6 +1145,15 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
                 right_sticky_state = 1 - right_sticky_state;
             }
         }
+        else if(GLFW_MOUSE_BUTTON_4)
+        {
+            sticky = 1 - sticky;
+            if(sticky == 1)
+            {
+                left_sticky_state = swipe;
+                right_sticky_state = focus;
+            }
+        }
     }
     else if(sticky == 0 && action == GLFW_RELEASE)
     {
