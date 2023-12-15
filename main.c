@@ -113,6 +113,8 @@ GLFWwindow* window;
 uint winw=1024, winh=768;
 float t=0.f, dt=0.f, st=0.f, fc=0.f, lfct=0.f, aspect;
 double mx,my,lx,ly,ww,wh;
+uint left_sticky_state = 0;
+uint right_sticky_state = 0;
 
 // render state
 mat projection, view, model, modelview;
@@ -1026,6 +1028,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         else if(key == GLFW_KEY_V) // sticky mouse clicks
         {
             sticky = 1 - sticky;
+            if(sticky == 1)
+            {
+                left_sticky_state = swipe;
+                right_sticky_state = focus;
+            }
         }
         else if(key == GLFW_KEY_1 && weapon >= 0){wield = 0;}
         else if(key == GLFW_KEY_2 && weapon >= 1){wield = 1;}
@@ -1068,8 +1075,6 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 }
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
-    static uint left_sticky_state = 0;
-    static uint right_sticky_state = 0;
     static float lz = 0.f;
     if(action == GLFW_PRESS)
     {
