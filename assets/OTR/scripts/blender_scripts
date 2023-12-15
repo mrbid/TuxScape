@@ -58,8 +58,13 @@ bpy.context.view_layer.update()
 /// apply modifiers to selected objects
 
 import bpy
+saved_location = bpy.context.scene.cursor.location
 for obj in bpy.context.selected_objects:
-	obj.modifier_apply(modifier="Decimate")
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.modifier_apply(modifier="Decimate")
+bpy.context.scene.cursor.location = saved_location
 
 /// remove modifiers
 
@@ -101,8 +106,3 @@ for obj in bpy.context.selected_objects:
                             forward_axis='Y',
                             up_axis='Z'
                         )
-
-
-
-
-
