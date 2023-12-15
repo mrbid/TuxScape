@@ -17,7 +17,7 @@ description: |
   Space = Jet Pack
   1-9 = Weapon Change
   C = Toggle between First and Third person
-  V = Toggle between stickey/toggle mouse clicks (good for afk)
+  V / MOUSE4 = Toggle between stickey/toggle mouse clicks (good for afk)
 
 grade: stable
 confinement: strict
