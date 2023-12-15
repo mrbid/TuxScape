@@ -4,6 +4,7 @@
 * **Snapcraft:** https://snapcraft.io/tuxscape
 * **Windows:** [TuxScape_windows.zip](https://github.com/mrbid/TuxScape/releases/download/1.2.2/TuxScape_windows.zip)
 * **Play Online:** [High Quality](https://mrbid.github.io/tuxscape) | [Medium Quality](https://mrbid.github.io/tuxscape/med) | [Low Quality](https://mrbid.github.io/tuxscape/low)
+
 *Be aware the online version has some bugs, that is the nature of [Emscripten](https://emscripten.org/).*
 
 ### A mythical adventure as Tux!
