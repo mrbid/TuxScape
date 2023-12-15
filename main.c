@@ -125,7 +125,7 @@ uint keystate[6] = {0};
 // camera vars
 uint focus_cursor = 0;
 double sens = 0.003f;
-float xrot = 0.f;
+float xrot = d2PI+0.22f;
 float yrot = d2PI;
 float zoom = -0.3f;
 vec look_dir, lookx, looky;
@@ -1039,6 +1039,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
         else if(key == GLFW_KEY_9 && weapon >= 8){wield = 8;}
         else if(key == GLFW_KEY_F) // show average fps
         {
+            printf("%f %f\n", pp.x, pp.y);
             if(t-lfct > 2.0)
             {
                 char strts[16];
@@ -1399,7 +1400,7 @@ int main(int argc, char** argv)
     //
     islands_type[0] = 5;
     for(uint i=1; i < MAX_ISLANDS; i++){islands_type[i] = esRand(5, 7);}
-    pp = (vec){0.f, 0.5f, 0.9f};
+    pp = (vec){-0.535921f, -0.114752f, 0.9f};
     focus = 1; // smooth drop-in [3]
     t = fTime();
     lfct = t;
