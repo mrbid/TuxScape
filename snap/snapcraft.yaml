@@ -1,6 +1,6 @@
 name: tuxscape
 base: core22
-version: '1.2'
+version: '1.2.1'
 license: GPL-2.0-only
 summary: A mythical adventure as Tux!
 description: |
