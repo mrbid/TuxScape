@@ -1343,6 +1343,7 @@ int main(int argc, char** argv)
     printf("ESCAPE = Unlock Mouse\n");
     printf("Left Click = Attack\n");
     printf("Right Click = Target Weapon / Engage Jet Pack\n");
+    printf("Mouse Scroll = Zoom in/out\n");
     printf("W,A,S,D / Arrow Keys = Move\n");
     printf("L-SHIFT / R-CTRL = Sprint/Fast\n");
     printf("Space = Jet Pack\n");

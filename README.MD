@@ -19,6 +19,7 @@ All your stats are shown in the title bar. 😉 Smash presents and pots to get h
 
 * Left Click = Attack
 * Right Click = Target Weapon / Engage Jet Pack
+* Mouse Scroll = Zoom in/out
 * W,A,S,D / Arrow Keys = Move
 * L-SHIFT / R-CTRL = Sprint/Fast
 * Space = Jet Pack
