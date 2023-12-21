@@ -51,7 +51,7 @@ All your stats are shown in the title bar. 😉 Smash presents and pots to get h
 * Wizard
 * Iron Knight
 * Ogre
-* Gollum
+* Golem
 * Bear
 * Wearwolf
 * Blue Dragon
