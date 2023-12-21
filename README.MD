@@ -2,6 +2,8 @@
 
 ### A mythical adventure as Tux! Inspired by the famous game Run-Escape.
 
+All your stats are shown in the title bar. 😉 Smash presents and pots to get health drops, I would start on Zombies, Green Flies, Baby Dragons, Skulls and Whirlwinds.
+
 * **Flathub:** https://flathub.org/apps/com.voxdsp.TuxScape
 * **Snapcraft:** https://snapcraft.io/tuxscape
 * **Windows:** [TuxScape_windows.zip](https://github.com/mrbid/TuxScape/releases/download/1.2.2/TuxScape_windows.zip)
