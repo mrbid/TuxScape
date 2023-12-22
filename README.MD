@@ -1,4 +1,4 @@
-![Screenshot of the TuxScape game](https://raw.githubusercontent.com/mrbid/TuxScape/main/screenshot.png)
+[![Screenshot of the TuxScape game](https://raw.githubusercontent.com/mrbid/TuxScape/main/screenshot.png)](https://youtu.be/mYtyf9vRVz0)
 
 ### A mythical adventure as Tux! Inspired by the famous game Run-Escape.
 
