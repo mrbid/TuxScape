@@ -1,6 +1,6 @@
 /*
     James William Fletcher  ( notabug.org/Vandarin )
-        November 2023       ( github.com/mrbid     )
+        December 2023       ( github.com/mrbid     )
 
     A mythical adventure as Tux!
 
@@ -37,7 +37,7 @@
 #include "inc/glfw3.h"
 #define fTime() (float)glfwGetTime()
 
-#define MAX_MODELS 128 // hard limit, be aware and increase if needed
+#define MAX_MODELS 64 // hard limit, be aware and increase if needed
 #include "inc/esAux5.h"
 
 #include "inc/res.h"
@@ -236,7 +236,7 @@
 const char appTitle[]="TuxScape";
 GLFWwindow* window;
 uint winw=1024, winh=768;
-float t=0.f, dt=0.f, st=0.f, fc=0.f, lfct=0.f, aspect;
+float t=0.f, dt=0.f, fc=0.f, lfct=0.f, aspect;
 double mx,my,lx,ly,ww,wh;
 uint left_sticky_state = 0;
 uint right_sticky_state = 0;
@@ -464,7 +464,6 @@ void main_loop()
 //*************************************
 // game logic
 //*************************************
-
 if(health > 0)
 {
     // forward & backward
@@ -629,7 +628,7 @@ if(health > 0)
     else
     {
         mIdent(&view);
-        mTranslate(&view, 0.f, 0.f, zoom);
+        mSetPos(&view, (vec){0.f, 0.f, zoom});
         mRotate(&view, yrot, 1.f, 0.f, 0.f);
         mRotate(&view, xrot, 0.f, 0.f, 1.f);
         mTranslate(&view, pp.x, pp.y, -pp.z-0.05f);
@@ -1343,7 +1342,6 @@ int main(int argc, char** argv)
     printf("ESCAPE = Unlock Mouse\n");
     printf("Left Click = Attack\n");
     printf("Right Click = Target Weapon / Engage Jet Pack\n");
-    printf("Mouse Scroll = Zoom in/out\n");
     printf("W,A,S,D / Arrow Keys = Move\n");
     printf("L-SHIFT / R-CTRL = Sprint/Fast\n");
     printf("Space = Jet Pack\n");
