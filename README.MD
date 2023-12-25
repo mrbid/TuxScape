@@ -10,10 +10,6 @@ All your stats are shown in the title bar. 😉 Smash presents and pots to get h
 * **Play Online:** [High Quality](https://mrbid.github.io/tuxscape) | [Medium Quality](https://mrbid.github.io/tuxscape/med) | [Low Quality](https://mrbid.github.io/tuxscape/low)
 * *Be aware the online version has some bugs, that is the nature of [Emscripten](https://emscripten.org/).*
 
-**Latest upto date repository at:** https://notabug.org/Vandarin/TuxScape
-
-*This repository was only created for the Snapcraft submission.*
-
 ## controls
 *Mouse locks when you click on the window, press ESCAPE to unlock the mouse.*
 
