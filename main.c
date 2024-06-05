@@ -579,7 +579,7 @@ if(health > 0)
         static float lt = 0.f;
         if(t > lt)
         {
-            const uint ei = esRand(0, 18);
+            const uint ei = esRand(0, 17);
             spawnEnemy(3+ei, ei);
             lt = t + esRandFloat(0.1f, 1.f);
         }
