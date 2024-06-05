@@ -6,7 +6,7 @@ All your stats are shown in the title bar. 😉 Smash presents and pots to get h
 
 * **Flathub:** https://flathub.org/apps/com.voxdsp.TuxScape
 * **Snapcraft:** https://snapcraft.io/tuxscape
-* **Windows:** [TuxScape_windows.zip](https://github.com/mrbid/TuxScape/releases/download/1.2.4/TuxScape_windows.zip)
+* **Windows:** https://github.com/mrbid/TuxScape/releases
 * **Play Online:** [High Quality](https://mrbid.github.io/tuxscape) | [Medium Quality](https://mrbid.github.io/tuxscape/med) | [Low Quality](https://mrbid.github.io/tuxscape/low)
 
 ## controls
